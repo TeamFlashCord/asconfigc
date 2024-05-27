@@ -11,6 +11,7 @@ setDebug(1);
 build();
 setDebug(0);
 postBuild();
+fl.quit(false);
 
 
 /* OPERATIONS */

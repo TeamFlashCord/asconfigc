@@ -10,7 +10,7 @@ cleanup();
 setDebug(0);
 build();
 postBuild();
-
+fl.quit(false);
 
 /* OPERATIONS */
 
