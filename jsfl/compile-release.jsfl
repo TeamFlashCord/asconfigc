@@ -6,6 +6,7 @@ var isAS3 = detectVersion();
 
 /* RUN */
 
+fl.showIdleMessage(false);
 cleanup();
 setDebug(0);
 build();
