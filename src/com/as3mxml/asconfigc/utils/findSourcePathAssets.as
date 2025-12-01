@@ -66,8 +66,8 @@ package com.as3mxml.asconfigc.utils
 			var fileCount:int = files.length;
 			for(var j:int = 0; j < fileCount; j++)
 			{
-				var file:String = files[j];
-				var fullPath:String = path.resolve(sourcePath, file);
+				var fileName:String = files[j];
+				var fullPath:String = path.resolve(sourcePath, fileName);
 				if(fs.statSync(fullPath).isDirectory())
 				{
 					//add this directory to the source paths
@@ -75,13 +75,18 @@ package com.as3mxml.asconfigc.utils
 					sourcePathsCount++;
 					continue;
 				}
-				var extname:String = path.extname(file);
+				var extname:String = path.extname(fileName);
 				if(extname === ".as" || extname === ".mxml")
 				{
 					continue;
 				}
 				if(excludes && excludes.indexOf(fullPath) !== -1)
 				{
+					continue;
+				}
+				if(fileName.startsWith("._") || fileName === ".DS_Store")
+				{
+					// macOS system files that can be ignored
 					continue;
 				}
 				result.add(fullPath);
