@@ -78,6 +78,7 @@ package com.as3mxml.asconfigc.utils
 				var extname:String = path.extname(fileName);
 				if(extname === ".as" || extname === ".mxml")
 				{
+					// don't copy source files; only assets
 					continue;
 				}
 				if(excludes && excludes.indexOf(fullPath) !== -1)
