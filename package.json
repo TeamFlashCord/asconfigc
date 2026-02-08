@@ -1,6 +1,6 @@
 {
   "name": "asconfigc",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "description": "Builds an ActionScript & MXML project configured with asconfig.json, from simple compilation to packaging Adobe AIR apps.",
   "author": "Josh Tynjala",
   "repository": "BowlerHatLLC/asconfigc",
@@ -40,7 +40,7 @@
     "tmp": "^0.2.3"
   },
   "devDependencies": {
-    "@apache-royale/royale-js": "^0.9.11"
+    "@apache-royale/royale-js": "^0.9.12"
   },
   "scripts": {
     "build": "asnodec --targets=JSNodeModule --source-map=true --source-path+=typedefs src/ASConfigC.as",

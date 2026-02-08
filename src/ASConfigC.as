@@ -1,5 +1,5 @@
 /*
-Copyright 2016-2021 Bowler Hat LLC
+Copyright 2016-2025 Bowler Hat LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -224,7 +224,7 @@ package
 			console.info(" --debug=true, --debug=false                         Specify debug or release mode. Overrides the debug compiler option, if specified in asconfig.json.");
 			console.info(" --air PLATFORM                                      Package the project as an Adobe AIR application. The allowed platforms include `android`, `ios`, `windows`, `mac`, `bundle`, and `air`.");
 			console.info(" --storepass PASSWORD                                The password used when signing and packaging an Adobe AIR application. If not specified, prompts for the password.");
-			console.info(" --unpackage-anes                                    Unpackage native extensions to the output directory when creating a debug build for the Adobe AIR simulator.");
+			console.info(" --unpackage-anes                                    Unpackage native extensions to the output directory for the Adobe AIR simulator.");
 			console.info(" --animate FILE                                      Specify the path to the Adobe Animate executable.");
 			console.info(" --publish-animate                                   Publish Adobe Animate document, instead of only exporting the SWF.");
 			console.info(" --clean                                             Clean the output directory. Will not build the project.");
@@ -382,9 +382,9 @@ package
 								{
 									this._airPlatform = AIRPlatformType.WINDOWS;
 								}
-								else
+								else if (process.platform === "linux")
 								{
-									throw new Error("Adobe AIR target \"bundle\" specified, but current operating system not recognized: " + process.platform);
+									this._airPlatform = AIRPlatformType.LINUX;
 								}
 							}
 							if(this._airPlatform === AIRPlatformType.MAC &&
@@ -396,6 +396,11 @@ package
 								process.platform !== "win32")
 							{
 								throw new Error("Error: Adobe AIR applications for Windows cannot be packaged on this platform.");
+							}
+							else if(this._airPlatform === AIRPlatformType.LINUX &&
+								process.platform !== "linux")
+							{
+								throw new Error("Error: Adobe AIR applications for Linux cannot be packaged on this platform.");
 							}
 						}
 						else
@@ -683,6 +688,24 @@ package
 					var index:int = 0;
 					for(var platformID:String in application)
 					{
+						if (AIRPlatformType.WINDOWS === platformID
+								&& process.platform !== "win32") {
+							// AIR can't compile for Windows from macOS or
+							// Linux, so we can skip this one
+							continue;
+						}
+						if (AIRPlatformType.MAC === platformID
+								&& process.platform !== "darwin") {
+							// AIR can't compile for macOS from Windows or
+							// Linux, so we can skip this one
+							continue;
+						}
+						if (AIRPlatformType.LINUX === platformID
+								&& process.platform !== "linux") {
+							// AIR can't compile for Linux from Windows or
+							// macOS, so we can skip this one
+							continue;
+						}
 						this._airDescriptors[index] = application[platformID];
 						index++;
 					}
@@ -1752,11 +1775,6 @@ package
 			if(!this._unpackageANEs)
 			{
 				//don't copy anything if it's not requested.
-				return;
-			}
-			if(!this._debugBuild)
-			{
-				//don't copy anything when it's a release build.
 				return;
 			}
 			if(this._compilerOptionsJSON === null)

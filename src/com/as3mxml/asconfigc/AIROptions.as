@@ -1,5 +1,5 @@
 /*
-Copyright 2016-2021 Bowler Hat LLC
+Copyright 2016-2025 Bowler Hat LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -31,6 +31,9 @@ package com.as3mxml.asconfigc
 
 		public static const CONNECT:String = "connect";
 		public static const LISTEN:String = "listen";
+
+		public static const LICENSE_DEV_ID:String = "licenseDevID";
+		public static const LICENSE_FILE:String = "licenseFile";
 
 		//ios
 		public static const SAMPLER:String = "sampler";

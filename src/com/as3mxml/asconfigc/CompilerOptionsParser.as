@@ -1,5 +1,5 @@
 /*
-Copyright 2016-2021 Bowler Hat LLC
+Copyright 2016-2025 Bowler Hat LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -178,6 +178,11 @@ package com.as3mxml.asconfigc
 					case CompilerOptions.INCLUDE_FILE:
 					{
 						parseIncludeFile(options[key], result);
+						break;
+					}
+					case CompilerOptions.INCLUDES:
+					{
+						OptionsFormatter.appendValues(key, options[key], result);
 						break;
 					}
 					case CompilerOptions.INCLUDE_LIBRARIES:

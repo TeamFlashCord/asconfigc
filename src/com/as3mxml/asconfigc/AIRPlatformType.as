@@ -1,5 +1,5 @@
 /*
-Copyright 2016-2021 Bowler Hat LLC
+Copyright 2016-2025 Bowler Hat LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,5 +23,6 @@ package com.as3mxml.asconfigc
 		public static const ANDROID:String = "android"; // android device
 		public static const WINDOWS:String = "windows"; //captive runtime
 		public static const MAC:String = "mac"; //captive runtime
+		public static const LINUX:String = "linux"; //captive runtime
 	}
 }

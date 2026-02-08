@@ -1,5 +1,5 @@
 /*
-Copyright 2016-2021 Bowler Hat LLC
+Copyright 2016-2025 Bowler Hat LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -66,8 +66,8 @@ package com.as3mxml.asconfigc.utils
 			var fileCount:int = files.length;
 			for(var j:int = 0; j < fileCount; j++)
 			{
-				var file:String = files[j];
-				var fullPath:String = path.resolve(sourcePath, file);
+				var fileName:String = files[j];
+				var fullPath:String = path.resolve(sourcePath, fileName);
 				if(fs.statSync(fullPath).isDirectory())
 				{
 					//add this directory to the source paths
@@ -75,13 +75,19 @@ package com.as3mxml.asconfigc.utils
 					sourcePathsCount++;
 					continue;
 				}
-				var extname:String = path.extname(file);
+				var extname:String = path.extname(fileName);
 				if(extname === ".as" || extname === ".mxml")
 				{
+					// don't copy source files; only assets
 					continue;
 				}
 				if(excludes && excludes.indexOf(fullPath) !== -1)
 				{
+					continue;
+				}
+				if(fileName.startsWith("._") || fileName === ".DS_Store")
+				{
+					// macOS system files that can be ignored
 					continue;
 				}
 				result.add(fullPath);
