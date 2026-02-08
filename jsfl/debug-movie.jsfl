@@ -5,6 +5,7 @@ var tempPath = getTempPath();
 var isAS3 = detectVersion();
 
 /* RUN */
+/* FC FORK CHANGE: Added fl.showIdleMessage() and fl.quit() calls. */
 
 fl.showIdleMessage(false);
 cleanup();
